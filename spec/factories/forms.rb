@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :form do
     title { FFaker::Lorem.word }
     description { FFaker::Lorem.phrase }
