@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Ap1::V1::Answers", type: :request do
-  describe "GET /ap1/v1/answers" do
+RSpec.describe "Api::V1::Answers", type: :request do
+  describe "GET /Api/v1/answers" do
     it "works! (now write some real specs)" do
-      get ap1_v1_answers_index_path
+      get Api_v1_answers_index_path
       expect(response).to have_http_status(200)
     end
   end
