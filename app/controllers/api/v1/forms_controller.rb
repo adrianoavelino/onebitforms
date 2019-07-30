@@ -1,4 +1,4 @@
-class Api::V1::FormsController < ApplicationController
+class Api::V1::FormsController < Api::V1::ApiController
   before_action :authenticate_api_v1_user!
 
   def index
@@ -8,6 +8,8 @@ class Api::V1::FormsController < ApplicationController
   end
 
   def show
+    @form = Form.friendly.find(params[:id])
+    render json: @form
   end
 
   def update
