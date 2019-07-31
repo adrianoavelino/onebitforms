@@ -1,11 +1,10 @@
 class Api::V1::FormsController < Api::V1::ApiController
   before_action :authenticate_api_v1_user!
-  before_action :set_form, only: [:show, :update]
-  before_action :allow_only_owner, only: [:update]
+  before_action :set_form, only: [:show, :update, :destroy]
+  before_action :allow_only_owner, only: [:update, :destroy]
 
   def index
     @forms = Form.all
-    # byebug
     render json: @forms.to_json
   end
 
@@ -27,6 +26,8 @@ class Api::V1::FormsController < Api::V1::ApiController
   end
 
   def destroy
+    @form.destroy
+    render json: {message: 'ok'}
   end
 
   private
