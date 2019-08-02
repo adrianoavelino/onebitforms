@@ -1,8 +1,8 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
   before_action :authenticate_api_v1_user!
-  before_action :set_question, only: [:update]
+  before_action :set_question, only: [:update, :destroy]
   before_action :set_form
-  before_action :allow_only_owner, only: [:update]
+  before_action :allow_only_owner, only: [:update, :destroy]
 
   def create
     @question = Question.new(question_params.merge(form: @form))
@@ -18,6 +18,9 @@ class Api::V1::QuestionsController < Api::V1::ApiController
   end
 
   def destroy
+    if @question.destroy
+      render json: {message: 'ok'}
+    end
   end
 
   private
