@@ -1,7 +1,8 @@
 class Api::V1::AnswersController < Api::V1::ApiController
   before_action :authenticate_api_v1_user!
-  before_action :set_answer, only: [:show]
+  before_action :set_answer, only: [:show, :destroy]
   before_action :set_form
+  before_action :allow_only_owner, only: [:index, :show, :destroy]
 
   def index
     @answers = @form.answers
@@ -18,6 +19,8 @@ class Api::V1::AnswersController < Api::V1::ApiController
   end
 
   def destroy
+    @answer.destroy
+    render json: {message: 'ok'}
   end
 
   private
@@ -27,5 +30,11 @@ class Api::V1::AnswersController < Api::V1::ApiController
 
   def set_form
     @form = (@answer) ? @answer.form : Form.find(params[:form_id])
+  end
+
+  def allow_only_owner
+    unless current_api_v1_user == @form.user
+      render(json: {}, status: :forbidden) and return
+    end
   end
 end
