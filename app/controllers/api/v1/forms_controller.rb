@@ -9,7 +9,7 @@ class Api::V1::FormsController < Api::V1::ApiController
   end
 
   def show
-    render json: @form
+    render json: @form, include: 'questions'
   end
 
   def update
